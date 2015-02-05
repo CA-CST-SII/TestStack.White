@@ -1,0 +1,24 @@
+﻿using System;
+using System.IO;
+using System.Reflection;
+using TestStack.White;
+
+namespace WpfTodo.UITests.Screens
+{
+    public abstract class UITestBase : IDisposable
+    {
+        public Application Application { get; private set; }
+
+        protected UITestBase()
+        {
+            var directoryName = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var markpadLocation = Path.Combine(directoryName, @"WpfTodo.exe");
+            Application = Application.Launch(markpadLocation);
+        }
+
+        public void Dispose()
+        {
+            Application.Dispose();
+        }
+    }
+}
